@@ -25,15 +25,6 @@ class GameLogger:
         
         self.summary_file.write("=== GAME LOG ===\n\n")
     
-    def log_setup(self, roles: Dict[str, str]):
-        """Log game setup"""
-        self.summary_file.write("SETUP:\n")
-        for player, role in roles.items():
-            self.summary_file.write(f"  {player}: {role}\n")
-        self.summary_file.write("\n")
-        self.summary_file.flush()
-        print(f"Role Assignments: {roles}")
-    
     def log_message(self, turn: int, speaker: str, recipients: str, message: str):
         """Log a message"""
         log_line = f"[{turn:02d}] {speaker}▶{recipients}: {message}\n"

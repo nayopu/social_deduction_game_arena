@@ -17,6 +17,10 @@ from langchain.output_parsers.json import SimpleJsonOutputParser
 from llm_utils import clean_json_response
 from simple_logging import log_warning
 from config import MAX_RETRIES, MAX_HISTORY_TURNS
+from prompts import (
+    PLAYER_SYSTEM_PROMPT, PLAYER_HUMAN_PROMPT,
+    GAMEMASTER_SYSTEM_PROMPT, GAMEMASTER_HUMAN_PROMPT
+)
 
 
 class AgentResponse(BaseModel):
@@ -109,68 +113,27 @@ class Player(Agent):
         super().__init__(name, llm)
         parser = SimpleJsonOutputParser()
         
-        sys_prompt = f"""You are a player named {name} in a social deduction game. 
-
-RULES:
-{rules_content}
-
-GAMEPLAY:
-- Submit bids (0.0-1.0) and messages each turn
-- Higher bids = stronger desire to speak
-- Use "to": "ALL" for public messages
-- Use "to": "GM" for private messages to GM
-- Use "to": "P1,P2" for direct messages to players
-"""
+        sys_prompt = PLAYER_SYSTEM_PROMPT.format(player_name=name, rules_content=rules_content)
+        human_prompt = PLAYER_HUMAN_PROMPT
         
         prompt = ChatPromptTemplate.from_messages([
             SystemMessage(content=sys_prompt),
-            ("human", """
-=== RECENT CONVERSATIONS ===
-{history}
-
-Respond ONLY JSON:
-{{"bid": <0.0-1.0>, "reason": <text>, "msg": <message>, "to": "ALL"|"GM"|"P1,P2,..."}}
-""")
+            ("human", human_prompt)
         ])
         self.main_chain = prompt | llm | parser
 
 
-class GameSystem(Agent):
-    """System/GM agent"""
+class GameMaster(Agent):
+    """GameMaster/GM agent"""
     def __init__(self, rules_content: str, llm: ChatOpenAI):
         super().__init__("GM", llm)
         
-        sys_prompt = f"""You are the GameSystem acting as both SYSTEM and GM.
-
-RULES:
-{rules_content}
-
-RESPONSIBILITIES:
-- Analyze all player bids and messages
-- Decide which messages to execute
-- Speak as GM when needed (phase changes, announcements)
-- Check win conditions
-- Manage game flow
-"""
+        sys_prompt = GAMEMASTER_SYSTEM_PROMPT.format(rules_content=rules_content)
+        human_prompt = GAMEMASTER_HUMAN_PROMPT
         
         self.system_chain = ChatPromptTemplate.from_messages([
             SystemMessage(content=sys_prompt),
-            ("human", """
-=== RECENT CONVERSATIONS ===
-{history}
-=== PLAYER SUBMISSIONS ===
-{all_submissions}
-
-Return ONLY JSON:
-{{
-  "selected_messages": [
-    {{"speaker": "P1", "to": ["ALL"], "message": "text", "reason": "why selected"}},
-    {{"speaker": "GM", "to": ["P2"], "message": "text", "reason": "GM message"}}
-  ],
-  "winner": null,
-  "reason": "explanation"
-}}
-""")
+            ("human", human_prompt)
         ]) | llm | SimpleJsonOutputParser()
     
     def process_turn_with_all_submissions(self, all_submissions: Dict) -> dict:
@@ -200,7 +163,7 @@ Return ONLY JSON:
                     response = clean_json_response(response)
                 
                 if not response or not isinstance(response, dict):
-                    log_warning(f"Invalid system response (attempt {attempt + 1})")
+                    log_warning(f"Invalid GameMaster response (attempt {attempt + 1})")
                     if attempt == self.max_retries - 1:
                         return {"selected_messages": [], "reason": "Failed to get valid response"}
                     time.sleep(0.5)
@@ -238,7 +201,7 @@ Return ONLY JSON:
                 return response
                 
             except Exception as e:
-                log_warning(f"Error in system processing (attempt {attempt + 1}): {e}")
+                log_warning(f"Error in GameMaster processing (attempt {attempt + 1}): {e}")
                 if attempt == self.max_retries - 1:
-                    return {"selected_messages": [], "reason": f"System error: {str(e)}"}
+                    return {"selected_messages": [], "reason": f"GameMaster error: {str(e)}"}
                 time.sleep(0.5) 

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Dict, List, Any
 from concurrent.futures import ThreadPoolExecutor
 
-from agents import Player, GameSystem
+from agents import Player, GameMaster
 from llm_utils import create_llm, parse_model_spec
 from simple_logging import GameLogger, log_info, log_error
 from config import DEFAULT_PLAYER_MODEL, DEFAULT_GM_MODEL, DEFAULT_MAX_TURNS, DEFAULT_NUM_PLAYERS
@@ -85,12 +85,8 @@ async def run_game(rules_file: str,
             name = f"P{i+1}"
             agents[name] = Player(name, rules_content, player_llm)
         
-        game_system = GameSystem(rules_content, gm_llm)
-        
-        # Initialize roles (simple random assignment for now)
-        roles = {f"P{i+1}": f"Role{i+1}" for i in range(num_players)}
-        logger.log_setup(roles)
-        
+        game_master = GameMaster(rules_content, gm_llm)
+
         log_info(f"Starting game with {num_players} players")
         
         # Main game loop
@@ -101,11 +97,11 @@ async def run_game(rules_file: str,
             # Bidding phase
             all_submissions = await parallel_bidding(agents, turn)
             
-            # System decision phase
-            system_response = game_system.process_turn_with_all_submissions(all_submissions)
+            # GameMaster decision phase
+            gm_response = game_master.process_turn_with_all_submissions(all_submissions)
             
             # Execute selected messages
-            selected_messages = system_response.get("selected_messages", [])
+            selected_messages = gm_response.get("selected_messages", [])
             for msg_info in selected_messages:
                 speaker = msg_info["speaker"]
                 recipients = msg_info["to"]
@@ -118,10 +114,10 @@ async def run_game(rules_file: str,
                 # Add to memory logs
                 for agent_name, agent in agents.items():
                     agent.mem_log.append((turn, speaker, recipients_str, message))
-                game_system.mem_log.append((turn, speaker, recipients_str, message))
+                game_master.mem_log.append((turn, speaker, recipients_str, message))
             
             # Check for winner
-            winner = system_response.get("winner")
+            winner = gm_response.get("winner")
             if winner:
                 log_info(f"Game ended with winner: {winner}")
                 break
@@ -139,7 +135,7 @@ async def run_game(rules_file: str,
             "turn_count": turn,
             "max_turns": max_turns,
             "max_turns_reached": not completed,
-            "total_messages": len([msg for msg in game_system.mem_log if msg[1] != "SYSTEM"]),
+            "total_messages": len([msg for msg in game_master.mem_log if msg[1] != "SYSTEM"]),
             "players": list(agents.keys()),
             "rules_file": rules_file
         }
