@@ -1,0 +1,94 @@
+===================== Werewolf Game Rules =====================
+
+OVERVIEW
+This is a classic Werewolf (Mafia) game where villagers try to identify and eliminate the werewolves among them, while werewolves try to survive and outnumber the villagers.
+
+VICTORY CONDITIONS
+• Villagers win when ALL Werewolves are eliminated (dead).
+• Werewolves win when Werewolves ≥ Villagers among living players.
+
+ROLES AND ABILITIES
+
+Basic Roles:
+• **Villager**: Basic town role with no special abilities. Can participate in discussions and vote to eliminate suspicious players.
+• **Werewolf**: Evil role that works with other werewolves. Each night, werewolves must coordinate and choose one player to eliminate. Werewolves know each other's identities from the start.
+
+Special Town Roles:
+• **Seer**: Can investigate one player each night to learn if they are a Werewolf or not. The GM will provide this information privately.
+• **Doctor**: Can protect one player each night from being killed by werewolves. Cannot protect the same player two consecutive nights.
+• **Hunter**: When killed (by vote or night elimination), can immediately choose to eliminate one other player as revenge.
+• **Witch**: Has two special potions that can each be used once during the game:
+  - Save potion: Can save the werewolf's victim for one night
+  - Kill potion: Can eliminate any player during the night
+  Can only use one potion per night, and each potion can only be used once per game.
+
+GAME PHASES
+
+The game alternates between Day and Night phases:
+
+Day Phase:
+1. **Discussion Phase**: All living players can discuss, share information, and debate who might be a werewolf.
+2. **Vote Phase**: Each living player privately sends the GM exactly one name of who they want to eliminate.
+
+Night Phase:
+• Werewolves coordinate and choose one player to eliminate (sent privately to GM).
+• Special roles use their abilities (sent privately to GM):
+  - Seer investigates one player
+  - Doctor protects one player
+  - Witch may use one potion (save or kill)
+
+RESOLUTION
+• Vote Phase: The player with the most votes is eliminated. Ties are resolved randomly.
+• Night Phase: The werewolves' chosen victim is eliminated (unless protected by Doctor or saved by Witch).
+• Special abilities are resolved in this order: Doctor protection → Werewolf attack → Witch save → Witch kill
+
+GAME FLOW
+Discussion → Vote → Night Actions → Repeat until victory condition is met
+
+COMMUNICATION RULES
+• During Discussion: Open communication among all living players
+• During Vote: Private messages to GM only
+• During Night: No discussion allowed, only private messages to GM for abilities
+• Werewolves may coordinate privately at any time (DM each other)
+
+GM RESPONSIBILITIES
+
+Phase Management:
+• Announce phase changes clearly
+• Collect votes and night actions
+• Announce results of votes and night eliminations
+• Coordinate special role abilities
+
+Examples of GM Announcements:
+• "GM: Discussion phase begins. Feel free to discuss."
+• "GM: Vote phase. Please DM me exactly one name to eliminate."
+• "GM: [Player] has been eliminated by vote."
+• "GM: Night phase. Werewolves, coordinate and DM me your victim. Special roles, DM me your actions."
+• "GM: [Player] was killed during the night."
+
+Special Role Coordination:
+• Provide Seer with investigation results via private DM
+• Handle Doctor protections secretly
+• Manage Witch's potion usage
+• Handle Hunter's revenge when triggered
+• Inform werewolves of each other's identities at game start
+
+Game Setup:
+• Assign roles based on player count:
+  - 4-5 players: 1 Werewolf, rest Villagers
+  - 6-7 players: 2 Werewolves, 1 Seer, 1 Doctor, rest Villagers
+  - 8+ players: 2+ Werewolves (roughly 25% of players), Seer, Doctor, Hunter, Witch, rest Villagers
+• Inform each player of their role privately via DM
+• Inform werewolves of their teammates privately
+
+Game End:
+• Check victory conditions after each elimination
+• When victory conditions are met, announce "Game concluded. [TEAM] wins!" where [TEAM] is either "Villagers" or "Werewolves"
+
+Rule Enforcement:
+• Ensure votes are submitted privately
+• Prevent discussion during night phase
+• Manage special ability timing and restrictions
+• Clarify rules when players have questions
+
+===================================================================== 

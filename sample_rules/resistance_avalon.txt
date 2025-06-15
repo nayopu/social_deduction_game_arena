@@ -1,0 +1,112 @@
+================ Resistance — Avalon Game Rules ================
+
+OVERVIEW
+This is a team-based mission game where the Loyal Servants of Arthur (Good) attempt to complete quests while the Minions of Mordred (Evil) try to sabotage them. The game combines hidden roles, team building, voting, and secret mission execution.
+
+VICTORY CONDITIONS
+• Loyal Servants of Arthur (Good) win after successfully completing 3 missions.
+• Minions of Mordred (Evil) win if they achieve 3 failed missions, OR if 5 consecutive team proposals are rejected, OR if the Assassin successfully kills Merlin after Good wins 3 missions.
+
+ROLES AND ABILITIES
+
+Good Side:
+• **Loyal Servant of Arthur**: Basic good role with no special abilities. Participates in discussions, team proposals, and voting.
+• **Merlin**: Knows the identity of all Evil players except Mordred. Must help Good succeed while staying hidden from the Assassin.
+• **Percival**: Knows who Merlin might be (sees both Merlin and Morgana). Must help protect Merlin's identity.
+
+Evil Side:
+• **Minion of Mordred**: Basic evil role that knows other Evil players. Works to fail missions and identify Merlin.
+• **Assassin**: Standard Evil player who gains a special final ability to kill Merlin if Good wins 3 missions.
+• **Morgana**: Appears as Merlin to Percival, creating confusion about Merlin's true identity.
+• **Mordred**: Hidden from Merlin's sight, making them particularly dangerous.
+• **Oberon**: Evil player who works alone - doesn't know other Evil players and they don't know Oberon.
+
+GAME PHASES
+
+The game consists of up to 5 missions, each following this sequence:
+
+Team Proposal Phase:
+1. **Leader Selection**: The current Leader proposes a team of the required size for the mission.
+2. **Team Announcement**: The Leader announces their proposed team publicly.
+
+Team Vote Phase:
+1. **Simultaneous Voting**: All players simultaneously vote to Approve or Reject the proposed team.
+2. **Vote Resolution**: If approved, proceed to Mission phase. If rejected, pass leadership clockwise.
+3. **Rejection Penalty**: After 5 consecutive rejections, Evil wins automatically.
+
+Mission Phase (only if team approved):
+1. **Mission Cards**: Only the approved team members secretly submit Success or Fail cards.
+2. **Card Constraints**: Good players MUST play Success cards. Evil players may choose Success or Fail.
+3. **Mission Resolution**: If any Fail cards are played, the mission fails (except Mission 4 with 7+ players requires 2 Fails).
+
+Assassination Phase (if Good wins 3 missions):
+1. **Merlin Identification**: The Assassin privately names who they believe is Merlin.
+2. **Final Resolution**: If correct, Evil steals victory. If wrong, Good wins.
+
+RESOLUTION
+• Team Vote: Majority vote determines approval/rejection. Ties count as rejection.
+• Mission: Any Fail card(s) cause mission failure (2 Fails needed for Mission 4 with 7+ players).
+• Assassination: Correct identification of Merlin gives Evil victory; incorrect gives Good victory.
+
+GAME FLOW
+Team Proposal → Team Vote → (If Approved) Mission → Record Result → Next Round
+Special: If Good wins 3 missions → Assassination Phase → Final Victory
+
+TEAM SIZE TABLE
+Players:  5  6  7  8  9 10
+Mission 1: 2  2  2  3  3  3
+Mission 2: 3  3  3  4  4  4
+Mission 3: 2  4  3  4  4  4
+Mission 4: 3  3  4  5  5  5
+Mission 5: 3  4  4  5  5  5
+
+Note: Mission 4 requires 2 Fail cards to fail when playing with 7+ players.
+
+COMMUNICATION RULES
+• During Team Proposal: Open discussion allowed
+• During Team Vote: Open discussion until voting begins, then votes are simultaneous
+• During Mission: No discussion, only private card submission
+• During Assassination: Only the Assassin acts, privately
+
+GM RESPONSIBILITIES
+
+Phase Management:
+• Track current mission number and required team size
+• Manage leadership rotation clockwise
+• Collect team proposals, votes, and mission cards
+• Track consecutive rejections (up to 5)
+
+Examples of GM Announcements:
+• "GM: Leader [Name], propose a team of [X] players."
+• "GM: Everyone DM me 'Approve' or 'Reject'."
+• "GM: The proposal is approved/rejected [vote tally]."
+• "GM: Mission team, DM me 'Success' or 'Fail'."
+• "GM: Mission [#] succeeded/failed. Score [Good:Evil]."
+• "GM: Assassin, DM me the name of Merlin."
+
+Special Role Coordination:
+• Provide Evil players with teammate information at game start
+• Inform Merlin of Evil identities (except Mordred) via private DM
+• Inform Percival of potential Merlin candidates via private DM
+• Handle Assassin's final Merlin guess privately
+
+Game Setup:
+• Assign roles based on player count:
+  - 5-6 players: 2 Evil (Assassin + Minion), Good roles include Merlin
+  - 7+ players: 3+ Evil, additional Good special roles (Percival)
+• Inform each player of their role privately via DM
+• Inform role-specific information (teammates, special knowledge)
+
+Game End:
+• Check victory conditions after each mission result
+• Handle consecutive rejection victory for Evil
+• Manage assassination phase if Good wins 3 missions
+• When victory conditions are met, announce "Game concluded. [TEAM] wins!" where [TEAM] is either "Loyal Servants of Arthur" or "Minions of Mordred"
+
+Rule Enforcement:
+• Ensure Good players cannot submit Fail cards
+• Prevent discussion during mission execution
+• Manage timing and consecutive rejection tracking
+• Clarify rules and resolve disputes
+
+===================================================================== 

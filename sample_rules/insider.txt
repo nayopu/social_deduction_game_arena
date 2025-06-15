@@ -1,0 +1,84 @@
+===================== Insider Game Rules =====================
+
+OVERVIEW
+This is a cooperative word-guessing game with a hidden traitor. Players must first guess a secret word within a time limit, then identify the hidden Insider who secretly knew the word and was guiding the group.
+
+VICTORY CONDITIONS
+• Master + Commoners win when the Insider is correctly identified during the Vote phase.
+• Insider wins when someone else is accused as the Insider.
+• Everyone loses if the secret word is not guessed within the time limit.
+
+ROLES AND ABILITIES
+
+Basic Roles:
+• **Master**: Moderates the question phase and answers only "Yes", "No", or "I don't know" to questions about the secret word. The Master reveals their role openly at the start.
+• **Commoner**: Does not know the secret word. Must work to discover the word during the Question phase and then help identify the Insider during discussion.
+• **Insider**: Secretly knows the secret word from the beginning. Must help guide the group to guess the word without being detected, then avoid being identified as the Insider.
+
+GAME PHASES
+
+The game follows this sequence:
+
+Question Phase (5 minutes):
+1. **Word Discovery**: Players ask the Master yes/no questions to discover the secret word.
+2. **Master Responses**: The Master can only respond with "Yes", "No", or "I don't know".
+3. **Insider Guidance**: The Insider subtly guides the group toward the correct word while staying hidden.
+
+Discussion Phase (2 minutes):
+• **Open Discussion**: If the word was guessed correctly, all players discuss who they suspect is the Insider.
+• **Information Sharing**: Players can share their suspicions and reasoning about who the Insider might be.
+
+Vote Phase:
+• **Simultaneous Vote**: Each living player privately sends the GM exactly one name of who they suspect is the Insider.
+
+RESOLUTION
+• Question Phase: If the secret word is guessed correctly within the time limit, proceed to Discussion phase. If not, everyone loses.
+• Vote Phase: The player with the most votes is accused as the Insider. Ties are resolved randomly.
+• Victory Check: If the accused player is the Insider, Master + Commoners win. If not, the Insider wins.
+
+GAME FLOW
+Question Phase → (If word guessed) Discussion Phase → Vote Phase → Victory Check
+
+COMMUNICATION RULES
+• During Question Phase: Only questions answerable by Yes/No/I don't know are allowed
+• During Discussion Phase: Open communication among all players
+• During Vote Phase: Private messages to GM only
+• Master must only respond with the three allowed phrases during Question Phase
+
+GM RESPONSIBILITIES
+
+Phase Management:
+• Choose and privately share the secret word with Master and Insider at game start
+• Announce phase changes clearly
+• Manage the 5-minute timer for Question phase
+• Collect votes and announce results
+
+Examples of GM Announcements:
+• "GM: Question phase begins – ask yes/no questions."
+• "GM: Correct! The word was [WORD]. Discussion phase – 2 minutes."
+• "GM: Vote phase – DM me one suspect."
+• "GM: [Player] is accused as Insider."
+
+Word Management:
+• Select an appropriate secret word at game start
+• Ensure the word is communicated privately to Master and Insider
+• Confirm when the correct word is guessed
+
+Rule Enforcement:
+• Reject questions that cannot be answered with Yes/No/I don't know
+• Ensure Master only uses the three allowed responses during Question phase
+• Prevent discussion during Question phase (except for asking questions)
+• Manage voting privately during Vote phase
+• Handle ties in voting by random selection
+
+Game Setup:
+• Randomly assign one player as Insider, rest as Commoners
+• Master role is typically assigned separately or volunteers
+• Privately inform Master and Insider of the secret word via DM
+
+Game End:
+• Check victory conditions after the Vote phase
+• When victory conditions are met, announce "Game concluded. [TEAM] wins!" where [TEAM] is either "Master + Commoners" or "Insider"
+• If word not guessed in time, announce "Time's up! Everyone loses."
+
+===================================================================== 

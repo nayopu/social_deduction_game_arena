@@ -1,0 +1,99 @@
+===================== Spyfall Game Rules =====================
+
+OVERVIEW
+This is a location-based deduction game where most players (Locals) know a secret location and must identify the one player (Spy) who doesn't know the location, while the Spy tries to figure out the location and blend in.
+
+VICTORY CONDITIONS
+• Locals win when they successfully vote out the Spy.
+• Spy wins when they correctly guess the secret location OR when a Local is voted out instead.
+
+ROLES AND ABILITIES
+
+Basic Roles:
+• **Local**: Knows the secret location. Must ask and answer questions to expose the Spy while avoiding giving away the location directly.
+• **Spy**: Does not know the secret location. Must blend in by asking clever questions and giving vague answers, then guess the location when ready.
+
+GAME PHASES
+
+The game alternates between these phases until victory:
+
+Discussion Phase:
+1. **Question & Answer**: Players take turns asking each other questions about the location.
+2. **Information Gathering**: Locals try to catch the Spy not knowing location details, while the Spy gathers clues.
+3. **Deduction**: All players analyze responses to identify suspicious behavior.
+
+Vote Phase:
+1. **Accusation**: Each living player privately sends the GM exactly one name of who they suspect is the Spy.
+2. **Vote Resolution**: The player with the most votes is revealed and their role exposed.
+
+Spy Guess Phase (optional):
+1. **Location Guess**: If the Spy is still alive after a vote, they may privately DM the GM with one location guess.
+2. **Immediate Resolution**: If the guess is correct, the Spy wins instantly. If wrong, the game continues.
+
+RESOLUTION
+• Vote Phase: The player with the most votes is revealed. Ties are resolved randomly.
+  - If the revealed player is the Spy → Locals win immediately
+  - If the revealed player is a Local → Spy wins immediately
+• Spy Guess: If the Spy's guess matches the secret location exactly → Spy wins immediately
+
+GAME FLOW
+Discussion → Vote → Reveal Result → (If Spy alive) Optional Spy Guess → Repeat until victory
+
+COMMUNICATION RULES
+• During Discussion: Open communication among all living players
+• During Vote: Private messages to GM only
+• Questions should be location-related but not too obvious
+• Players should avoid directly stating the location name
+
+GM RESPONSIBILITIES
+
+Phase Management:
+• Secretly choose a location at game start from the available location list
+• Announce phase changes clearly
+• Collect votes and spy guesses
+• Reveal vote results and check victory conditions
+
+Examples of GM Announcements:
+• "GM: Discussion phase begins. Ask away!"
+• "GM: Vote phase – DM me one suspect."
+• "GM: [Player] is accused and revealed to be [Local/Spy]."
+• "GM: Spy, DM me your location guess now."
+
+Location Management:
+• Select one location randomly from the available locations
+• Inform all Local players of the location privately via DM
+• Keep the location secret from the Spy
+• Confirm or deny Spy's location guesses
+
+Game Setup:
+• Randomly assign one player as the Spy, all others as Locals
+• Inform each player of their role privately via DM
+• Share the secret location with all Local players only
+• Begin with Discussion phase
+
+Available Locations (sample):
+• Airplane, Casino, Cathedral, Corporate Party, Crusader Army
+• Day Spa, Embassy, Hospital, Hotel, International Space Station
+• Movie Studio, Ocean Liner, Passenger Train, Pirate Ship
+• Polar Station, Police Station, Restaurant, School, Service Station
+• Submarine, Supermarket, Theater, University, Vacation Resort
+
+Rule Enforcement:
+• Ensure votes are submitted privately
+• Accept only one location guess per Spy per round
+• Prevent direct location name reveals during discussion
+• Handle ties in voting by random selection
+• Manage optional Spy guessing phase timing
+
+Game End:
+• Check victory conditions immediately after vote reveals
+• Check victory conditions immediately after Spy guesses
+• When victory conditions are met, announce "Game concluded. [TEAM] wins!" where [TEAM] is either "Locals" or "Spy"
+
+Question Guidelines:
+• Encourage creative, location-specific questions
+• Questions should be answerable by someone at that location
+• Avoid yes/no only questions to generate more discussion
+• Examples: "What do you usually wear here?" "What's the temperature like?" "How often do you come here?"
+
+===================================================================== 
