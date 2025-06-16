@@ -184,23 +184,19 @@ Generate a complete game rules text file that implements this specific social de
 def parse_args():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
-        description="Generate Python rule files for social deduction games from game descriptions using LLM."
+        description="Generate Python rule files for social deduction games from game descriptions using LLM. "
+                   "You can provide the description via --description argument or pipe it through stdin."
     )
     parser.add_argument(
         "--description", 
         type=str, 
-        help="Plain text description of the game mechanics, roles, and rules"
+        help="Plain text description of the game mechanics, roles, and rules (or pipe via stdin)"
     )
     parser.add_argument(
         "--output", 
         type=str, 
         required=True,
         help="Path where to save the generated rule file (e.g., my_game.py)"
-    )
-    parser.add_argument(
-        "--description-file",
-        type=str,
-        help="Path to text file containing the game description (alternative to --description)"
     )
     return parser.parse_args()
 
@@ -209,23 +205,20 @@ def main():
     """Main function for standalone usage."""
     args = parse_args()
     
-    # Get the description from command line or file
-    if args.description_file:
-        try:
-            with open(args.description_file, 'r', encoding='utf-8') as f:
-                description = f.read().strip()
-        except Exception as e:
-            print(f"Error reading description file {args.description_file}: {e}")
-            sys.exit(1)
-    elif args.description:
+    # Get the description from command line or stdin
+    if args.description:
         description = args.description.strip()
     else:
-        print("Error: Must provide either --description or --description-file")
-        sys.exit(1)
+        # Read from stdin
+        try:
+            description = sys.stdin.read().strip()
+        except Exception as e:
+            print(f"Error reading from stdin: {e}")
+            sys.exit(1)
     
     # Validate description is not empty
     if not description:
-        print("Error: Game description cannot be empty")
+        print("Error: Game description cannot be empty. Provide via --description or pipe through stdin.")
         sys.exit(1)
     
     # Convert output path to Path object

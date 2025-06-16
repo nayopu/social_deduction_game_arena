@@ -45,7 +45,7 @@ async def run_game(rules_file: str,
     try:
         # Load rules
         if not Path(rules_file).exists():
-            rules_file = f"sample_rules/{rules_file}"
+            rules_file = f"{rules_file}"
         
         with open(rules_file, 'r') as f:
             rules_content = f.read()
@@ -82,8 +82,18 @@ async def run_game(rules_file: str,
             # Bidding phase
             all_submissions = await parallel_bidding(agents)
             
+            # Log each player's complete response
+            for player_name, response in all_submissions.items():
+                if isinstance(response, dict):
+                    logger.log_player_response_silent(turn, player_name, response)
+                else:
+                    log_error(f"Invalid response from {player_name}: {response}")
+            
             # GameMaster decision phase
             gm_response = await game_master.announce(all_submissions)
+            
+            # Log GM's complete response
+            logger.log_gm_response_silent(turn, gm_response)
             
             # Execute selected messages
             selected_messages = gm_response.get("selected_messages", [])

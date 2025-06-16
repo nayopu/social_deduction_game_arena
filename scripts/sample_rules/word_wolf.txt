@@ -1,0 +1,100 @@
+===================== Word Wolf Game Rules =====================
+
+OVERVIEW
+This is a word-based deduction game where most players (Citizens) receive the same secret keyword, while a few players (Wolves) receive a similar but different keyword. Players must discuss the topic without revealing their exact word, then vote to eliminate the Wolves.
+
+VICTORY CONDITIONS
+• Citizens win when at least one Wolf is voted out and eliminated.
+• Wolves win when no Wolf is voted out (all Wolves survive the voting phase).
+
+ROLES AND ABILITIES
+
+Basic Roles:
+• **Citizen**: Receives the majority keyword shared by most players. Must participate in discussion about the topic and help identify the Wolves who have different keywords.
+• **Wolf**: Receives a different but related keyword from the Citizens. Must blend in during discussion and avoid being voted out.
+
+GAME PHASES
+
+The game follows a single-day structure:
+
+Discussion Phase:
+1. **Topic Discussion**: All players openly discuss the topic related to their keywords without revealing the exact word.
+2. **Information Gathering**: Citizens try to identify inconsistencies in Wolves' knowledge, while Wolves try to blend in.
+3. **Deduction**: Players analyze each other's responses to identify who might have different keywords.
+
+Vote Phase:
+1. **Elimination Vote**: Each living player privately sends the GM exactly one name of who they want to eliminate.
+2. **Vote Resolution**: The player(s) with the most votes are eliminated. Ties are resolved randomly.
+
+RESOLUTION
+• Vote Phase: The player with the most votes is eliminated and removed from the game.
+• Victory Check: Immediately after elimination, check if any Wolves were eliminated to determine victory.
+
+GAME FLOW
+Discussion → Vote → Elimination → Victory Check
+
+COMMUNICATION RULES
+• During Discussion: Open communication among all living players
+• During Vote: Private messages to GM only
+• Players may say anything about the topic EXCEPT their exact keyword
+• Indirect references and descriptions are encouraged
+
+EXAMPLE WORD PAIRS
+• Apple / Pear
+• Soccer / Basketball
+• Cat / Dog
+• Sea / River
+• Sushi / Tempura
+
+GM RESPONSIBILITIES
+
+Phase Management:
+• Select one word pair at game start
+• Assign keywords based on roles
+• Moderate discussion and determine when to move to voting
+• Collect votes and announce elimination results
+
+Examples of GM Announcements:
+• "GM: Discussion phase begins. Feel free to talk about your topic."
+• "GM: Vote phase. DM me exactly one name."
+• "GM: [Player] is executed."
+
+Keyword Management:
+• Choose one word pair randomly from available pairs
+• Assign the majority word to Citizens
+• Assign the minority word to Wolves
+• Keep word assignments secret from other players
+• Never reveal any keywords publicly during the game
+
+Game Setup:
+• Assign roles based on player count:
+  - 4-7 players: 1 Wolf, rest Citizens
+  - 8+ players: 2 Wolves, rest Citizens
+• Inform each player of their role and keyword privately via DM
+• Begin with Discussion phase
+
+Rule Enforcement:
+• Prevent players from stating their exact keywords
+• Ensure votes are submitted privately
+• Moderate discussion to maintain fair play
+• Handle ties in voting by random elimination
+• Never reveal keywords publicly
+
+Game End:
+• Check victory conditions immediately after each elimination
+• When victory conditions are met, announce "Game concluded. [TEAM] wins!" where [TEAM] is either "Citizens" or "Wolves"
+• Reveal all keywords after victory is determined
+
+Discussion Guidelines:
+• Encourage creative descriptions of the keyword topic
+• Ask players to describe characteristics, uses, or experiences
+• Promote discussion that reveals knowledge without direct naming
+• Examples: "I use this every day", "This is usually red or green", "You can find this outdoors"
+
+Strategy Notes:
+• Citizens should pay attention to subtle differences in knowledge
+• Wolves should listen carefully to Citizens' descriptions to blend in
+• Questions about specific details can help expose Wolves
+• Wolves may try to ask questions to gather information without revealing ignorance
+
+===================================================================== 

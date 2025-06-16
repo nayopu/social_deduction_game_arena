@@ -142,6 +142,6 @@ Notes:
 - If no messages are selected, return empty selected_messages array
 - Each selected message should include the original speaker, recipients, and content
 - The "to" field should be an array: ["ALL"] for public, ["P1","P2"] for DMs
-- You MUST include ALL DMs to GM yourself in `selected_messages`, considering the all DMs to GM are selected.
+- You MUST include ALL DMs to GM yourself in `selected_messages` if with the bid is larger than 0.0.
 - winner: Set to null if game continues, or the name of the winning team when game ends (e.g., "Villagers", "Werewolves")
 """ 
