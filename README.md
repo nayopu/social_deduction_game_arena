@@ -28,7 +28,7 @@ Models like GPT-3.5 or Claude Haiku may not perform well due to the complex reas
 
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/nayopu/social_deduction_game_arena.git
    cd social_deduction_game_arena
    ```
 
