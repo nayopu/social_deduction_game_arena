@@ -14,12 +14,11 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.schema import SystemMessage
 from langchain.output_parsers.json import SimpleJsonOutputParser
 
-from llm_utils import clean_json_response
-from simple_logging import log_warning
-from config import MAX_RETRIES, MAX_HISTORY_TURNS
-from prompts import (
+from utils.llm import clean_json_response
+from utils.logging import log_warning
+from utils.prompts import (
     PLAYER_SYSTEM_PROMPT, PLAYER_HUMAN_PROMPT,
-    GAMEMASTER_SYSTEM_PROMPT, GAMEMASTER_HUMAN_PROMPT
+    GM_SYSTEM_PROMPT, GM_HUMAN_PROMPT
 )
 
 
@@ -56,55 +55,11 @@ class AgentResponse(BaseModel):
 
 class Agent:
     """Base agent class"""
-    def __init__(self, name: str, llm: ChatOpenAI):
-        self.name = name
+    def __init__(self, name: str, llm: ChatOpenAI, max_retries: int = 3, max_history_turns: int = 100):
         self.llm = llm
         self.mem_log: List[Tuple[int, str, str, str]] = []  # (turn, sender, recipients, text)
-        self.max_retries = MAX_RETRIES
-
-    async def decide_async(self, turn: int) -> dict:
-        """Make a decision asynchronously"""
-        history = "\n".join(f"{turn}: {sender}▶{recv}: {txt}" 
-                           for turn, sender, recv, txt in self.mem_log[-MAX_HISTORY_TURNS:])
-        
-        for attempt in range(self.max_retries):
-            try:
-                js = await self.main_chain.ainvoke({"history": history})
-                response = AgentResponse.from_llm_response(js)
-                return response.model_dump()
-                
-            except Exception as e:
-                log_warning(f"Error in agent {self.name}'s response (attempt {attempt + 1}): {e}")
-                if attempt == self.max_retries - 1:
-                    return {
-                        "bid": 0.0,
-                        "msg": "", 
-                        "to": "ALL",
-                        "reason": f"Error after {self.max_retries} attempts"
-                    }
-                await asyncio.sleep(0.5)
-
-    def decide(self, turn: int) -> dict:
-        """Make a decision synchronously"""
-        history = "\n".join(f"{turn}: {sender}▶{recv}: {txt}" 
-                           for turn, sender, recv, txt in self.mem_log[-MAX_HISTORY_TURNS:])
-        
-        for attempt in range(self.max_retries):
-            try:
-                js = self.main_chain.invoke({"history": history})
-                response = AgentResponse.from_llm_response(js)
-                return response.model_dump()
-                
-            except Exception as e:
-                log_warning(f"Error in agent {self.name}'s response (attempt {attempt + 1}): {e}")
-                if attempt == self.max_retries - 1:
-                    return {
-                        "bid": 0.0,
-                        "msg": "",
-                        "to": "ALL",
-                        "reason": f"Error after {self.max_retries} attempts"
-                    }
-                time.sleep(0.5)
+        self.max_retries = max_retries
+        self.max_history_turns = max_history_turns
 
 
 class Player(Agent):
@@ -122,24 +77,45 @@ class Player(Agent):
         ])
         self.main_chain = prompt | llm | parser
 
+    async def bid(self) -> dict:
+        """Make a decision asynchronously"""
+        history = "\n".join(f"{turn}: {sender}▶{recv}: {txt}" 
+                           for turn, sender, recv, txt in self.mem_log[-self.max_history_turns:])
+        
+        for attempt in range(self.max_retries):
+            try:
+                js = await self.main_chain.ainvoke({"history": history})
+                response = AgentResponse.from_llm_response(js)
+                return response.model_dump()
+                
+            except Exception as e:
+                log_warning(f"Error in agent {self.name}'s response (attempt {attempt + 1}): {e}")
+                if attempt == self.max_retries - 1:
+                    return {
+                        "bid": 0.0,
+                        "msg": "", 
+                        "to": "ALL",
+                        "reason": f"Error after {self.max_retries} attempts"
+                    }
+                await self.main_chain.ainvoke({"history": history}) 
 
 class GameMaster(Agent):
     """GameMaster/GM agent"""
     def __init__(self, rules_content: str, llm: ChatOpenAI):
         super().__init__("GM", llm)
         
-        sys_prompt = GAMEMASTER_SYSTEM_PROMPT.format(rules_content=rules_content)
-        human_prompt = GAMEMASTER_HUMAN_PROMPT
+        sys_prompt = GM_SYSTEM_PROMPT.format(rules_content=rules_content)
+        human_prompt = GM_HUMAN_PROMPT
         
         self.system_chain = ChatPromptTemplate.from_messages([
             SystemMessage(content=sys_prompt),
             ("human", human_prompt)
         ]) | llm | SimpleJsonOutputParser()
     
-    def process_turn_with_all_submissions(self, all_submissions: Dict) -> dict:
+    async def announce(self, all_submissions: Dict) -> dict:
         """Process a turn with all player submissions"""
         history = "\n".join(f"{turn}: {sender}▶{recv}: {txt}" 
-                    for turn, sender, recv, txt in self.mem_log[-MAX_HISTORY_TURNS:])
+                    for turn, sender, recv, txt in self.mem_log[-self.max_history_turns:])
         
         # Format submissions
         submissions_text = []
@@ -154,7 +130,7 @@ class GameMaster(Agent):
         
         for attempt in range(self.max_retries):
             try:
-                response = self.system_chain.invoke({
+                response = await self.system_chain.ainvoke({
                     "history": history,
                     "all_submissions": submissions_str
                 })
@@ -166,7 +142,7 @@ class GameMaster(Agent):
                     log_warning(f"Invalid GameMaster response (attempt {attempt + 1})")
                     if attempt == self.max_retries - 1:
                         return {"selected_messages": [], "reason": "Failed to get valid response"}
-                    time.sleep(0.5)
+                    await asyncio.sleep(0.5)
                     continue
                 
                 # Validate response structure
@@ -204,4 +180,4 @@ class GameMaster(Agent):
                 log_warning(f"Error in GameMaster processing (attempt {attempt + 1}): {e}")
                 if attempt == self.max_retries - 1:
                     return {"selected_messages": [], "reason": f"GameMaster error: {str(e)}"}
-                time.sleep(0.5) 
+                await asyncio.sleep(0.5)

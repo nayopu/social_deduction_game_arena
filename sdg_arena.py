@@ -10,39 +10,24 @@ import json
 import random
 from pathlib import Path
 from typing import Dict, List, Any
-from concurrent.futures import ThreadPoolExecutor
 
-from agents import Player, GameMaster
-from llm_utils import create_llm, parse_model_spec
-from simple_logging import GameLogger, log_info, log_error
-from config import DEFAULT_PLAYER_MODEL, DEFAULT_GM_MODEL, DEFAULT_MAX_TURNS, DEFAULT_NUM_PLAYERS
+from utils.agents import Player, GameMaster
+from utils.llm import create_llm, parse_model_spec
+from utils.logging import GameLogger, log_info, log_error
 
-
-async def parallel_bidding(agents: Dict[str, Player], turn: int) -> Dict[str, dict]:
+async def parallel_bidding(agents: Dict[str, Player]) -> Dict[str, dict]:
     """Execute bidding phase in parallel for all player agents"""
-    with ThreadPoolExecutor(max_workers=len(agents)) as executor:
-        futures = {}
-        for name, agent in agents.items():
-            future = executor.submit(agent.decide, turn)
-            futures[name] = future
-        
-        results = {}
-        for name, future in futures.items():
-            try:
-                results[name] = future.result()
-            except Exception as e:
-                log_error(f"Agent {name} failed to bid: {e}")
-                results[name] = {"bid": 0.0, "msg": "", "to": "ALL", "reason": "Error"}
-        
-        return results
-
+    tasks = [asyncio.create_task(agent.bid(), name=f"bid_{name}") 
+             for name, agent in agents.items()]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    return dict(zip(agents.keys(), results))
 
 async def run_game(rules_file: str, 
-                  num_players: int = DEFAULT_NUM_PLAYERS,
-                  player_model: str = DEFAULT_PLAYER_MODEL, 
-                  gm_model: str = DEFAULT_GM_MODEL,
-                  out_dir: str = "game_logs", 
-                  max_turns: int = DEFAULT_MAX_TURNS) -> Dict[str, Any]:
+            num_players: int = 5,
+            player_model: str = "openai:o3", 
+            gm_model: str = "",
+            out_dir: str = "game_logs", 
+            max_turns: int = 100) -> Dict[str, Any]:
     """
     Run a complete social deduction game.
     
@@ -95,10 +80,10 @@ async def run_game(rules_file: str,
             log_info(f"\n=== Turn {turn} ===")
             
             # Bidding phase
-            all_submissions = await parallel_bidding(agents, turn)
+            all_submissions = await parallel_bidding(agents)
             
             # GameMaster decision phase
-            gm_response = game_master.process_turn_with_all_submissions(all_submissions)
+            gm_response = await game_master.announce(all_submissions)
             
             # Execute selected messages
             selected_messages = gm_response.get("selected_messages", [])
@@ -155,32 +140,30 @@ async def run_game(rules_file: str,
             "turn_count": 0
         }
 
-
-async def main():
+def main():
     """Main entry point for running games"""
     import argparse
     
     parser = argparse.ArgumentParser(description="Run social deduction game")
     parser.add_argument("--rules", type=str, required=True, help="Rules file")
-    parser.add_argument("--players", type=int, default=DEFAULT_NUM_PLAYERS, help="Number of players")
-    parser.add_argument("--player-model", type=str, default=DEFAULT_PLAYER_MODEL, help="Player model")
-    parser.add_argument("--gm-model", type=str, default=DEFAULT_GM_MODEL, help="GM model")
+    parser.add_argument("--players", type=int, default=5, help="Number of players")
+    parser.add_argument("--player-model", type=str, default="openai:o3", help="Player model")
+    parser.add_argument("--gm-model", type=str, default="", help="GM model. If not provided, will use player model.")
     parser.add_argument("--out-dir", type=str, default="game_logs", help="Output directory")
-    parser.add_argument("--max-turns", type=int, default=DEFAULT_MAX_TURNS, help="Max turns")
+    parser.add_argument("--max-turns", type=int, default=100, help="Max turns")
     
     args = parser.parse_args()
     
-    result = await run_game(
+    result = asyncio.run(run_game(
         rules_file=args.rules,
         num_players=args.players,
         player_model=args.player_model,
         gm_model=args.gm_model,
         out_dir=args.out_dir,
         max_turns=args.max_turns
-    )
+    ))
     
     print(f"Game completed: {result}")
 
-
 if __name__ == "__main__":
-    asyncio.run(main()) 
+    main() 

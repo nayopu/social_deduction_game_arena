@@ -10,7 +10,7 @@ import re
 import json
 from typing import Tuple
 from langchain_openai import ChatOpenAI
-from simple_logging import log_warning
+from utils.logging import log_warning
 
 
 def create_llm(api_source: str, model_name: str, temperature: float = 0.1) -> ChatOpenAI:

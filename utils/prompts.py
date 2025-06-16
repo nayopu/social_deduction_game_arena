@@ -8,6 +8,9 @@ All prompts used by agents in the social deduction game.
 PLAYER_SYSTEM_PROMPT = """You are a player named {player_name} in a social deduction game. Here are the rules:
 {rules_content}
 
+GAME INITIALIZATION:
+At the very start (turn 1), you MUST wait for the GM to assign roles to players and inform you via DM
+
 TURN STRUCTURE:
 Each turn follows this exact sequence:
 1. **Bidding Phase**: All players submit bids and messages simultaneously
