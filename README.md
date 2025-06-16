@@ -1,6 +1,10 @@
 # Social Deduction Game Arena
 
-A comprehensive framework for running AI-powered social deduction games with automatic rule generation capabilities. This system enables AI agents to play complex social deduction games like Werewolf, Mafia, Resistance, and custom games, with support for parallel gameplay and detailed logging.
+A flexible framework for running social deduction games played by language models.
+
+## Features
+- **Flexible Rule System**: Play both classic social deduction games (e.g., Werewolf, Word Wolf, or Resistance Avalon) and custom rule sets by simply providing text-based rule files
+- **Fully Conversation-based**: Game progression is managed by a language model Game Master, where all game actions including discussions, votes, and investigation results are handled through natural conversations between players and the GM
 
 ![Social Deduction Game Arena](arena.png)
 
@@ -10,13 +14,12 @@ This project provides:
 - **Game Arena** (`sdg_arena.py`): Core engine for running social deduction games with AI agents
 - **Rule Generator** (`scripts/generate_rule.py`): LLM-powered tool for generating game rules from plain text descriptions
 - **Pre-built Games**: Collection of classic social deduction games (Werewolf, Resistance, Spyfall, etc.)
-- **Comprehensive Logging**: Detailed game logs and analysis tools
 
 ## Model Requirements
 
 **Important**: This system requires LLMs with high reasoning capabilities for both players and Game Master roles. Recommended models include:
 
-- **OpenAI**: `openai:o3`, `openai:o3-mini` 
+- **OpenAI**: `openai:o3`
 - **OpenRouter**: `openrouter:deepseek/deepseek-r1-0528`
 
 Models like GPT-3.5 or Claude Haiku may not perform well due to the complex reasoning required for social deduction gameplay.
@@ -122,6 +125,9 @@ python sdg_arena.py \
   --players 6 \
   --player-model openrouter:deepseek/deepseek-r1-0528
 ```
+
+## Related Projects
+- [Werewolf Arena](https://github.com/google/werewolf_arena)
 
 ---
 ## Example Game Output
