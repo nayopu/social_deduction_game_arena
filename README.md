@@ -82,66 +82,7 @@ Models are specified as `provider:model_name`, for example:
 - `openrouter:deepseek/deepseek-r1-0528`
 - `anthropic:claude-3.5-sonnet`
 
-### Generating Rules with generate_rule.py
-
-Create custom game rules from plain text descriptions using LLM.
-
-#### Basic Usage
-
-```bash
-python scripts/generate_rule.py \
-  --description "A social deduction game where spies infiltrate government agents..." \
-  --output my_custom_game.txt
-```
-
-#### Pipeline Usage
-
-```bash
-cat scripts/sample_rule_seed.txt | python scripts/generate_rule.py --output spy_game.txt
-```
-
-```bash
-echo "Your game description here" | python scripts/generate_rule.py --output custom_game.txt
-```
-
-#### Game Description Format
-
-Your game description should include:
-- **Game mechanics**: How the game works, phases, timing
-- **Roles**: What roles exist and their abilities
-- **Victory conditions**: How each team/faction wins
-- **Gameplay flow**: How a typical game progresses
-
-**Example Description**:
-```
-A social deduction game where Spies try to infiltrate and sabotage Government Agents' mission while Agents try to identify and eliminate the Spies. Each night, Agents can investigate other players to learn their true identity, while Spies can sabotage the mission progress. The Government team wins by completing their mission objectives while eliminating all Spies. The Spy team wins by either eliminating enough Agents or sabotaging the mission completely.
-```
-
-## Project Structure
-
-```
-social_deduction_game_arena/
-├── sdg_arena.py              # Main game engine
-├── requirements.txt          # Python dependencies
-├── rules/                    # Pre-built game rules
-│   ├── werewolf.txt
-│   ├── resistance_avalon.txt
-│   ├── spyfall.txt
-│   ├── insider.txt
-│   └── word_wolf.txt
-├── scripts/
-│   ├── generate_rule.py      # Rule generator utility
-│   ├── sample_rule_seed.txt  # Example game description
-│   └── sample_rules/         # Template rules for generation
-├── utils/                    # Core utilities
-│   ├── agents.py            # Player and GM agent classes
-│   ├── llm.py               # LLM client utilities
-│   ├── logging.py           # Game logging system
-│   └── prompts.py           # LLM prompts and templates
-└── game_logs/               # Generated game logs (created during games)
-```
-
-## Available Games
+#### Available Games
 
 The system includes several pre-built social deduction games:
 
@@ -151,6 +92,38 @@ The system includes several pre-built social deduction games:
 - **Insider** (`rules/insider.txt`): Word-guessing game with hidden insider role
 - **Word Wolf** (`rules/word_wolf.txt`): Similar word variant with minority detection
 
+### Generating Rules with generate_rule.py
+
+Create custom game rules from plain text descriptions using LLM.
+
+#### Basic Usage
+
+```bash
+python scripts/generate_rule.py \
+  --description "A social deduction game where spies infiltrate government agents..." \
+  --output rules/my_game.txt
+```
+
+#### Pipeline Usage
+
+```bash
+cat scripts/sample_rule_seed.txt | python scripts/generate_rule.py --output rules/my_game.txt
+```
+
+```bash
+echo "Your game description here" | python scripts/generate_rule.py --output rules/my_game.txt
+```
+
+#### Running Generated Custom Game
+
+```bash
+python sdg_arena.py \
+  --rules rules/my_game.txt \
+  --players 6 \
+  --player-model openrouter:deepseek/deepseek-r1-0528
+```
+
+---
 ## Example Game Output
 
 Here's what a typical Werewolf game looks like when run with the system:
@@ -209,64 +182,3 @@ Game ended with winner: Villagers
 GAME END: Winner = Villagers (Turn 9)
 Game completed: {'success': True, 'game_completed': True, 'winner': 'Villagers', 'turn_count': 9, 'max_turns': 100, 'max_turns_reached': False, 'total_messages': 20, 'players': ['P1', 'P2', 'P3', 'P4', 'P5'], 'rules_file': 'rules/werewolf.txt'}
 ```
-
-This example shows:
-- **Role Assignment**: GM privately assigns roles to each player
-- **Discussion Phase**: Players engage in strategic conversation and reasoning
-- **Voting Phase**: Players vote to eliminate suspected werewolves
-- **Game Resolution**: The villagers successfully identified and eliminated the werewolf
-
-## Examples
-
-### Running a Werewolf Game
-
-```bash
-python sdg_arena.py \
-  --rules rules/werewolf.txt \
-  --players 7 \
-  --player-model openai:o3 \
-  --out-dir werewolf_game_logs
-```
-
-### Generating Custom Spy Game Rules
-
-```bash
-python scripts/generate_rule.py \
-  --description "Spies must complete secret missions while avoiding detection by Counter-Intelligence agents. Spies win by completing 3 missions, agents win by catching all spies." \
-  --output rules/spy_missions.txt
-```
-
-### Running Generated Custom Game
-
-```bash
-python sdg_arena.py \
-  --rules rules/spy_missions.txt \
-  --players 6 \
-  --player-model openrouter:deepseek/deepseek-r1-0528
-```
-
-## Game Logs and Analysis
-
-Each game generates comprehensive logs in the specified output directory:
-
-- `game_summary.json`: High-level game statistics and results
-- `turn_X_player_Y.json`: Individual player responses per turn
-- `turn_X_gm.json`: Game Master decisions and announcements
-- `messages.jsonl`: All game messages in chronological order
-
-### Performance Tips
-
-- Use `o3-mini` instead of `o3` for faster games with similar quality
-- Reduce `--max-turns` for quicker testing
-- Use different models for players vs GM to optimize cost/performance
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Add your changes with tests
-4. Submit a pull request
-
-## License
-
-[Include your license information here] 
