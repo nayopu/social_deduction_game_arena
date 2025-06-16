@@ -127,7 +127,8 @@ python sdg_arena.py \
 ```
 
 ## Related Projects
-- [Werewolf Arena](https://github.com/google/werewolf_arena)
+- [Werewolf Arena](https://github.com/google/werewolf_arena) - A framework for evaluating social reasoning skills of LLMs through Werewolf gameplay
+
 
 ---
 ## Example Game Output
